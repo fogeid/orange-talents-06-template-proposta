@@ -1,5 +1,8 @@
 package br.com.zupacademy.diego.proposta.validators;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.ConstraintValidator;
@@ -21,9 +24,14 @@ public class ValorUnicoValidator implements ConstraintValidator<ValorUnico, Obje
 
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext context) {
-        return this.em.createQuery("SELECT 1 FROM " + this.obj.getName() + " WHERE " + fieldName + "= :field")
+        Boolean isValid = this.em.createQuery("SELECT 1 FROM " + this.obj.getName() + " WHERE " + fieldName + "= :field")
                 .setParameter("field", value)
                 .getResultList()
                 .isEmpty();
+
+        if(!isValid) {
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Já existe proposta para esse usuário.");
+        }
+        return isValid;
     }
 }
