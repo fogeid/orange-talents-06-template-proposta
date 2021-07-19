@@ -24,11 +24,10 @@ public class CartaoScheduling {
     @Autowired
     private PropostaRepository propostaRepository;
 
-    @Scheduled(fixedDelay = 5000)
+    @Scheduled(fixedDelay = 50000)
     private void associarCartao() {
         List<Proposta> propostas =  propostaRepository.findByStatusAndNumeroCartaoIsNull(StatusProposta.ELEGIVEL);
         propostas.forEach(p -> {
-            System.out.println(p.getId());
             try {
                 var response = cartaoIntegration.findCartao(p.getId().toString());
                 propostaRepository.save(new Proposta(p, response.getId()));
