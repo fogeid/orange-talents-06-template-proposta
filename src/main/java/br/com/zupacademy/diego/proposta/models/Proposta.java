@@ -42,6 +42,9 @@ public class Proposta {
     @Column(nullable = false)
     private BigDecimal salario;
 
+    @Enumerated(value = EnumType.STRING)
+    private StatusProposta status = StatusProposta.NAO_ELEGIVEL;
+
     public Proposta() {
     }
 
@@ -53,6 +56,18 @@ public class Proposta {
         this.nome = nome;
         this.endereco = endereco;
         this.salario = salario;
+    }
+
+    public Proposta(String id, @NotNull @NotEmpty String documento,@NotNull @NotEmpty @Email String email,
+                    @NotNull @NotEmpty String nome, @NotNull @NotEmpty String endereco,
+                    @NotNull @Positive BigDecimal salario, StatusProposta status) {
+        this.id = id;
+        this.documento = documento;
+        this.email = email;
+        this.nome = nome;
+        this.endereco = endereco;
+        this.salario = salario;
+        this.status = status;
     }
 
     public String getId() {
@@ -77,5 +92,9 @@ public class Proposta {
 
     public BigDecimal getSalario() {
         return salario;
+    }
+
+    public StatusProposta getStatus() {
+        return status;
     }
 }
