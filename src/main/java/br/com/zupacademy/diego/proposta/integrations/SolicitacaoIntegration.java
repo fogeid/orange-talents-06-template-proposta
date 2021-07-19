@@ -10,5 +10,4 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface SolicitacaoIntegration {
     @PostMapping
     SolicitacaoResponse enviarSolicitacao(@RequestBody SolicitacaoRequest request);
-
 }

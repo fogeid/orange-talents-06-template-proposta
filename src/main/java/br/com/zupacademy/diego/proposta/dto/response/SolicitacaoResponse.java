@@ -1,16 +1,34 @@
 package br.com.zupacademy.diego.proposta.dto.response;
 
-import br.com.zupacademy.diego.proposta.models.Proposta;
-import br.com.zupacademy.diego.proposta.models.StatusProposta;
-
 public class SolicitacaoResponse {
-    private StatusProposta status;
+    private String nome;
+    private String documento;
+    private String resultadoSolicitacao;
+    private String idProposta;
 
-    public SolicitacaoResponse(Proposta proposta) {
-        this.status = proposta.getStatus();
+    public SolicitacaoResponse() {
     }
 
-    public StatusProposta getStatus() {
-        return status;
+    public SolicitacaoResponse(String nome, String documento, String resultadoSolicitacao, String idProposta) {
+        this.nome = nome;
+        this.documento = documento;
+        this.resultadoSolicitacao = resultadoSolicitacao;
+        this.idProposta = idProposta;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public String getResultadoSolicitacao() {
+        return resultadoSolicitacao;
+    }
+
+    public String getIdProposta() {
+        return idProposta;
     }
 }

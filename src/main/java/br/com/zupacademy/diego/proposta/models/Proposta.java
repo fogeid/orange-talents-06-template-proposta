@@ -58,18 +58,6 @@ public class Proposta {
         this.salario = salario;
     }
 
-    public Proposta(String id, @NotNull @NotEmpty String documento,@NotNull @NotEmpty @Email String email,
-                    @NotNull @NotEmpty String nome, @NotNull @NotEmpty String endereco,
-                    @NotNull @Positive BigDecimal salario, StatusProposta status) {
-        this.id = id;
-        this.documento = documento;
-        this.email = email;
-        this.nome = nome;
-        this.endereco = endereco;
-        this.salario = salario;
-        this.status = status;
-    }
-
     public String getId() {
         return id;
     }
@@ -96,5 +84,9 @@ public class Proposta {
 
     public StatusProposta getStatus() {
         return status;
+    }
+
+    public void setStatus(StatusProposta status) {
+        this.status = status;
     }
 }
