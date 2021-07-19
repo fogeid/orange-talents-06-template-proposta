@@ -45,6 +45,8 @@ public class Proposta {
     @Enumerated(value = EnumType.STRING)
     private StatusProposta status = StatusProposta.NAO_ELEGIVEL;
 
+    private String numeroCartao;
+
     public Proposta() {
     }
 
@@ -56,6 +58,17 @@ public class Proposta {
         this.nome = nome;
         this.endereco = endereco;
         this.salario = salario;
+    }
+
+    public Proposta(Proposta proposta, String numeroCartao) {
+        this.id = proposta.getId();
+        this.documento = proposta.getDocumento();
+        this.email = proposta.getEmail();
+        this.nome = proposta.getNome();
+        this.endereco = proposta.getEndereco();
+        this.salario = proposta.getSalario();
+        this.status = proposta.getStatus();
+        this.numeroCartao = numeroCartao;
     }
 
     public String getId() {
