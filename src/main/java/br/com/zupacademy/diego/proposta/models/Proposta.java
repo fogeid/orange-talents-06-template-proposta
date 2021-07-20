@@ -71,12 +71,6 @@ public class Proposta {
         this.numeroCartao = numeroCartao;
     }
 
-//    public Proposta(String nome, StatusProposta status, String numeroCartao) {
-//        this.nome = nome;
-//        this.status = status;
-//        this.numeroCartao = numeroCartao;
-//    }
-
     public String getId() {
         return id;
     }

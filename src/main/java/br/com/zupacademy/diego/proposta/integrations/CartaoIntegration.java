@@ -5,7 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name = "cartao", url = "http://localhost:8888", path = "/api/cartoes")
+@FeignClient(name = "cartao", url = "${cartao.url}", path = "${cartao.path}")
 public interface CartaoIntegration {
     @GetMapping
     CartaoResponse findCartao(@RequestParam(name = "idProposta") String id);
