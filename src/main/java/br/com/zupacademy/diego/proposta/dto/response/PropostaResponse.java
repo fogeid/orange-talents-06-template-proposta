@@ -5,7 +5,7 @@ import br.com.zupacademy.diego.proposta.models.StatusProposta;
 
 public class PropostaResponse {
     private String nome;
-    private String numeroCartao;
+    private String idCartao;
     private StatusProposta statusProposta;
 
     public PropostaResponse() {
@@ -13,7 +13,7 @@ public class PropostaResponse {
 
     public PropostaResponse(Proposta proposta) {
         this.nome = proposta.getNome();
-        this.numeroCartao = proposta.getNumeroCartao();
+        this.idCartao = proposta.getIdCartao();
         this.statusProposta = proposta.getStatus();
     }
 
@@ -21,8 +21,8 @@ public class PropostaResponse {
         return nome;
     }
 
-    public String getNumeroCartao() {
-        return numeroCartao;
+    public String getIdCartao() {
+        return idCartao;
     }
 
     public StatusProposta getStatusProposta() {

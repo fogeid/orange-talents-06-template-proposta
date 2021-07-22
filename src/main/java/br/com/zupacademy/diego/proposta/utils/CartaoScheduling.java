@@ -26,7 +26,7 @@ public class CartaoScheduling {
 
     @Scheduled(fixedDelay = 50000)
     private void associarCartao() {
-        List<Proposta> propostas =  propostaRepository.findByStatusAndNumeroCartaoIsNull(StatusProposta.ELEGIVEL);
+        List<Proposta> propostas =  propostaRepository.findByStatusAndIdCartaoIsNull(StatusProposta.ELEGIVEL);
         propostas.forEach(p -> {
             try {
                 var response = cartaoIntegration.findCartao(p.getId().toString());

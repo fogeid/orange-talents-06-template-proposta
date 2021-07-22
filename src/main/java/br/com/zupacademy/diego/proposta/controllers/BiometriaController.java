@@ -23,7 +23,7 @@ public class BiometriaController {
     @Autowired
     private CartaoIntegration integration;
 
-    @PostMapping("/cartoes/{id}/biometria")
+    @PostMapping("/cartoes/{id}/biometrias")
     public ResponseEntity<?> associarBiometria(@PathVariable String id, @RequestBody @Valid BiometriaRequest request, UriComponentsBuilder uriBuilder) {
         try {
             CartaoResponse response = integration.findCartaoById(id);

@@ -10,5 +10,5 @@ import java.util.List;
 
 @Repository
 public interface PropostaRepository extends JpaRepository<Proposta, String> {
-    List<Proposta> findByStatusAndNumeroCartaoIsNull(StatusProposta statusProposta);
+    List<Proposta> findByStatusAndIdCartaoIsNull(StatusProposta statusProposta);
 }
