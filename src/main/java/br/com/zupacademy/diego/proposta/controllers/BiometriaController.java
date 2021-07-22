@@ -23,21 +23,21 @@ public class BiometriaController {
     @Autowired
     private CartaoIntegration integration;
 
-    @PostMapping("/cartoes/{id}/biometrias")
-    public ResponseEntity<?> associarBiometria(@PathVariable String id, @RequestBody @Valid BiometriaRequest request, UriComponentsBuilder uriBuilder) {
+    @PostMapping("/cartoes/{idCartao}/biometrias")
+    public ResponseEntity<?> associarBiometria(@PathVariable String idCartao, @RequestBody @Valid BiometriaRequest request, UriComponentsBuilder uriBuilder) {
         try {
-            CartaoResponse response = integration.findCartaoById(id);
+            CartaoResponse response = integration.findCartaoById(idCartao);
         } catch (FeignException e) {
             if (e.status() == 404) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+                return ResponseEntity.notFound().build();
             }
             return ResponseEntity.badRequest().build();
         }
 
-        Biometria biometria = request.converter(id);
+        Biometria biometria = request.converter(idCartao);
         biometriaRepository.save(biometria);
 
-        URI uri = uriBuilder.path("/{id}").buildAndExpand(biometria.getId()).toUri();
+        URI uri = uriBuilder.path("/{idCartao}").buildAndExpand(biometria.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 }
