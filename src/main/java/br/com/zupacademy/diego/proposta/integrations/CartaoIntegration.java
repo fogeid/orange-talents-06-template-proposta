@@ -12,9 +12,12 @@ public interface CartaoIntegration {
     @GetMapping
     CartaoResponse findCartao(@RequestParam(name = "idProposta") String id);
 
-    @GetMapping("/{id}")
-    CartaoResponse findCartaoById(@PathVariable String id);
+    @GetMapping("/{idCartao}")
+    CartaoResponse findCartaoById(@PathVariable String idCartao);
 
     @PostMapping("/{idCartao}/bloqueios")
     void bloquearCartaoNoSistemaLegado(@PathVariable String idCartao, Object sistemaResponsavel);
+
+    @PostMapping("/{idCartao}/avisos")
+    void avisoViagem(@PathVariable String idCartao, Object request);
 }
