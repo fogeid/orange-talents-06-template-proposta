@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 
@@ -25,6 +26,7 @@ public class AvisoCartaoController {
     private CartaoIntegration integration;
 
     @PostMapping("/cartoes/{idCartao}/avisos")
+    @Transactional
     public ResponseEntity<?> insertAvisoViagem(@PathVariable String idCartao, @RequestBody @Valid AvisoCartaoRequest request, @RequestHeader(value = "User-Agent") String userAgent, HttpServletRequest servletRequest, UriComponentsBuilder uriBuilder) {
         try {
             CartaoResponse response = integration.findCartaoById(idCartao);
@@ -35,11 +37,13 @@ public class AvisoCartaoController {
             } if (e.status() == 422) {
                 return ResponseEntity.unprocessableEntity().build();
             }
+
+            return ResponseEntity.badRequest().build();
         }
 
         AvisoCartao avisoCartao = request.converter(idCartao, userAgent, servletRequest);
         avisoCartaoRepository.save(avisoCartao);
-        URI uri = uriBuilder.path("/cartao/{idCartao}/avisos").buildAndExpand(avisoCartao.getId()).toUri();
+        URI uri = uriBuilder.path("/cartao/{idCartao}/avisos").buildAndExpand(avisoCartao.getIdCartao()).toUri();
 
         return ResponseEntity.created(uri).build();
     }

@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 
@@ -24,6 +25,7 @@ public class BiometriaController {
     private CartaoIntegration integration;
 
     @PostMapping("/cartoes/{idCartao}/biometrias")
+    @Transactional
     public ResponseEntity<?> associarBiometria(@PathVariable String idCartao, @RequestBody @Valid BiometriaRequest request, UriComponentsBuilder uriBuilder) {
         try {
             CartaoResponse response = integration.findCartaoById(idCartao);
@@ -37,7 +39,7 @@ public class BiometriaController {
         Biometria biometria = request.converter(idCartao);
         biometriaRepository.save(biometria);
 
-        URI uri = uriBuilder.path("/{idCartao}").buildAndExpand(biometria.getId()).toUri();
+        URI uri = uriBuilder.path("/{idCartao}").buildAndExpand(biometria.getIdCartao()).toUri();
         return ResponseEntity.created(uri).build();
     }
 }

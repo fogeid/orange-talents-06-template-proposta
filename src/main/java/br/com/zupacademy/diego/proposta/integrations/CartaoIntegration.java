@@ -20,4 +20,7 @@ public interface CartaoIntegration {
 
     @PostMapping("/{idCartao}/avisos")
     void avisoViagem(@PathVariable String idCartao, Object request);
+
+    @PostMapping("/{idCartao}/carteiras")
+    void inserirCarteira(@PathVariable String idCartao, Object request);
 }

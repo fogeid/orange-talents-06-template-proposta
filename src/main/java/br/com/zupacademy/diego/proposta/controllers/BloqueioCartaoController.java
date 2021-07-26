@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import java.net.URI;
 import java.util.Map;
 
@@ -30,6 +31,7 @@ public class BloqueioCartaoController {
     private String sistemaResponsavel;
 
     @PostMapping("/cartoes/{idCartao}/bloqueios")
+    @Transactional
     public ResponseEntity<?> bloquearCartao(@PathVariable String idCartao, @RequestHeader(value = "User-Agent") String userAgent, HttpServletRequest servletRequest, UriComponentsBuilder uriBuilder) {
         try {
             CartaoResponse response = integration.findCartaoById(idCartao);
@@ -46,7 +48,7 @@ public class BloqueioCartaoController {
         BloqueioCartao bloqueioCartao = new BloqueioCartao(idCartao, servletRequest.getRemoteAddr(), userAgent);
         bloqueioCartaoRepository.save(bloqueioCartao);
 
-        URI uri = uriBuilder.path("/{idCartao").buildAndExpand(bloqueioCartao.getId()).toUri();
+        URI uri = uriBuilder.path("/{idCartao}").buildAndExpand(bloqueioCartao.getIdCartao()).toUri();
         return ResponseEntity.created(uri).build();
     }
 }
