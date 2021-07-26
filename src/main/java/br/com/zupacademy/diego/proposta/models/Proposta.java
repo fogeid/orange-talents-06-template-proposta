@@ -2,13 +2,14 @@ package br.com.zupacademy.diego.proposta.models;
 
 import br.com.zupacademy.diego.proposta.validators.Documento;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table (name = "tb_proposta")
+@Table(name = "tb_proposta")
 public class Proposta {
     @Id
     @GeneratedValue(generator = "UUID")
@@ -17,7 +18,6 @@ public class Proposta {
 
     @NotNull
     @NotEmpty
-    @Documento
     @Column(nullable = false)
     private String documento;
 
@@ -54,6 +54,7 @@ public class Proposta {
                     @NotNull @NotEmpty String nome, @NotNull @NotEmpty String endereco,
                     @NotNull @Positive BigDecimal salario) {
         this.documento = documento;
+        this.documento = encrypt(documento);
         this.email = email;
         this.nome = nome;
         this.endereco = endereco;
@@ -105,5 +106,9 @@ public class Proposta {
 
     public String getIdCartao() {
         return idCartao;
+    }
+
+    private String encrypt(String documento) {
+        return new BCryptPasswordEncoder().encode(documento);
     }
 }
