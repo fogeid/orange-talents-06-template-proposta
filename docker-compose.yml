@@ -12,6 +12,7 @@ services:
       - meu_db
     environment:
       APP_PROFILE: prod
+      JAEGER_URL: jaeger:14268/api/traces
 
   meu_db:
     image: mysql:8.0
